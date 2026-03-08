@@ -17,8 +17,6 @@ This app automates both phases:
 2. **Connection** — after pairing, detects the session port via mDNS (`_adb-tls-connect._tcp`) and connects automatically.
 3. **Shell** — runs any ADB shell command and displays the output.
 
-The approach mirrors [Shizuku](https://github.com/RikkaApps/Shizuku) exactly: a foreground service listens for mDNS announcements, and a `RemoteInput` notification lets the user enter the PIN without leaving the Settings screen (which would expire the code).
-
 ## Requirements
 
 - Android 11 or higher
@@ -27,17 +25,13 @@ The approach mirrors [Shizuku](https://github.com/RikkaApps/Shizuku) exactly: a 
 
 ## Usage
 
-### First time (pairing)
+### Pairing
 
 1. Open the app and tap **Start Pairing**.
 2. On your device go to **Settings › Developer options › Wireless Debugging › Pair device with pairing code**.
 3. A notification will appear automatically with the detected port.
 4. Pull down the notification, tap **Enter code**, and type the 6-digit PIN shown on the Wireless Debugging screen.
 5. After pairing completes, **disable and re-enable Wireless Debugging** — the app will connect automatically.
-
-### Every subsequent time
-
-If the ADB session port hasn't changed since the last connection you can just tap **Connect manually** with the saved port. Otherwise, run **Start Pairing** again (no PIN needed if already paired — just to trigger mDNS auto-connect).
 
 ### Running commands
 
@@ -79,6 +73,10 @@ MainActivity.java           — Single-screen UI: shows pairing/connection/comma
 ```
 
 The APK will be at `app/build/outputs/apk/debug/app-debug.apk`.
+
+## Releases
+
+A pre-built debug APK is available in the [Releases](https://github.com/pabloajoinglez/AdbShellTool/releases) section.
 
 ## License
 
