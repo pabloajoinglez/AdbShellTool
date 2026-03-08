@@ -72,13 +72,15 @@ MainActivity.java           — Single-screen UI: shows pairing/connection/comma
 
 ## Building
 
+Clone the repository.
+
+Create `local.properties` in the root with your Android SDK path.
+
 ```bash
 ./gradlew assembleDebug
 ```
 
 The APK will be at `app/build/outputs/apk/debug/app-debug.apk`.
-
-
 
 ## License
 
