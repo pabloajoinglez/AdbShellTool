@@ -2,26 +2,9 @@
 
 An Android app that connects to the device's own ADB daemon via **Wireless Debugging** (Android 11+), pairs with a PIN code, and executes arbitrary ADB shell commands — all from within the device itself, without a PC.
 
-## How it works
+## Releases
 
-Android 11+ includes a built-in ADB daemon that listens on two local ports:
-
-| Port | Purpose |
-|------|---------|
-| Pairing port | One-time SPAKE2 key exchange using a 6-digit PIN |
-| Session port | TLS-authenticated ADB session for shell commands |
-
-This app automates both phases:
-
-1. **Pairing** — detects the pairing port automatically via mDNS (`_adb-tls-pairing._tcp`), shows a notification with an inline input field for the PIN, and performs the SPAKE2 handshake. Only needs to be done once.
-2. **Connection** — after pairing, detects the session port via mDNS (`_adb-tls-connect._tcp`) and connects automatically.
-3. **Shell** — runs any ADB shell command and displays the output.
-
-## Requirements
-
-- Android 11 or higher
-- **Developer options** enabled
-- **Wireless Debugging** enabled in Developer options
+A pre-built debug APK is available in the [Releases](https://github.com/pabloajoinglez/AdbShellTool/releases) section.
 
 ## Usage
 
@@ -42,6 +25,27 @@ Type any shell command in the text field and tap **Run**. The process runs as UI
 - Manage processes (`am start`, `am force-stop`, …)
 - Read system settings (`settings get`, …)
 - And much more
+
+## How it works
+
+Android 11+ includes a built-in ADB daemon that listens on two local ports:
+
+| Port | Purpose |
+|------|---------|
+| Pairing port | One-time SPAKE2 key exchange using a 6-digit PIN |
+| Session port | TLS-authenticated ADB session for shell commands |
+
+This app automates both phases:
+
+1. **Pairing** — detects the pairing port automatically via mDNS (`_adb-tls-pairing._tcp`), shows a notification with an inline input field for the PIN, and performs the SPAKE2 handshake. Only needs to be done once.
+2. **Connection** — after pairing, detects the session port via mDNS (`_adb-tls-connect._tcp`) and connects automatically.
+3. **Shell** — runs any ADB shell command and displays the output.
+
+## Requirements
+
+- Android 11 or higher
+- **Developer options** enabled
+- **Wireless Debugging** enabled in Developer options
 
 ## Architecture
 
@@ -74,9 +78,7 @@ MainActivity.java           — Single-screen UI: shows pairing/connection/comma
 
 The APK will be at `app/build/outputs/apk/debug/app-debug.apk`.
 
-## Releases
 
-A pre-built debug APK is available in the [Releases](https://github.com/pabloajoinglez/AdbShellTool/releases) section.
 
 ## License
 
