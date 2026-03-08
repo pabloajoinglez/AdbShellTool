@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.example.adbshelltool'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.adbshelltool"
+        minSdk 30
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packaging {
+        resources {
+            excludes += [
+                'META-INF/DEPENDENCIES',
+                'META-INF/LICENSE',
+                'META-INF/LICENSE.txt',
+                'META-INF/NOTICE',
+                'META-INF/NOTICE.txt',
+                'META-INF/*.SF',
+                'META-INF/*.DSA',
+                'META-INF/*.RSA',
+            ]
+        }
+    }
+}
+
+dependencies {
+    // libadb-android: protocolo ADB completo (pairing SPAKE2 + conexion TLS + streams)
+    // Repositorio: https://github.com/MuntashirAkon/libadb-android
+    implementation 'com.github.MuntashirAkon:libadb-android:3.1.1'
+
+    // sun-security-android: expone android.sun.security.x509.* en tiempo de compilacion.
+    // Necesario para construir certificados X.509 sin Bouncy Castle.
+    // Sin esta libreria el compilador no encuentra los packages android.sun.*.
+    // En runtime esas clases existen en Android, pero el SDK no las expone al compilar.
+    implementation 'com.github.MuntashirAkon:sun-security-android:1.1'
+
+    // hiddenapibypass: permite acceder en runtime a las APIs ocultas de Android
+    // (android.sun.* son "hidden APIs" restringidas desde Android 9+).
+    // La app de ejemplo oficial de libadb-android usa exactamente esta libreria.
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
+
+    // Conscrypt: proveedor TLS que soporta TLSv1.3, necesario para el pairing ADB.
+    implementation 'org.conscrypt:conscrypt-android:2.5.2'
+
+    // UI estandar de Android
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+}

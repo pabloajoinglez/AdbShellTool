@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ============================================================
+             CONNECTED STATE — shown only when ADB session is active.
+             Collapses sections 1 & 2 so the screen stays clean.
+             ============================================================ -->
+        <LinearLayout
+            android:id="@+id/layoutConnected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#E8F5E9"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvConnectedStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Connected"
+                android:textColor="#2E7D32"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnDisconnect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disconnect"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+        </LinearLayout>
+
+        <!-- ============================================================
+             SECTION 1: PAIRING — hidden once connected
+             ============================================================ -->
+        <LinearLayout
+            android:id="@+id/layoutPairing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Pairing (first time only)"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tap Start Pairing. The app detects the port automatically via mDNS. A notification will appear — pull it down and type the 6-digit code shown in Settings, without leaving Settings."
+                android:textSize="12sp"
+                android:textColor="#888888"
+                android:paddingBottom="8dp" />
+
+            <Button
+                android:id="@+id/btnStartPairing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start Pairing"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/tvPairingStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="13sp"
+                android:paddingTop="4dp"
+                android:paddingBottom="8dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp" />
+
+        </LinearLayout>
+
+        <!-- ============================================================
+             SECTION 2: CONNECTION — hidden once connected
+             ============================================================ -->
+        <LinearLayout
+            android:id="@+id/layoutConnection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2. Connection"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Auto-connects after pairing. Use this only if auto-connect failed."
+                android:textSize="12sp"
+                android:textColor="#888888"
+                android:paddingBottom="8dp" />
+
+            <EditText
+                android:id="@+id/editConnectionPort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Session port (e.g. 42135)"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/btnConnect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Connect manually"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/tvConnectionStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="13sp"
+                android:paddingTop="4dp"
+                android:paddingBottom="8dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp" />
+
+        </LinearLayout>
+
+        <!-- ============================================================
+             SECTION 3: EXECUTE COMMANDS
+             Always visible.
+             ============================================================ -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Run ADB shell command"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingBottom="8dp" />
+
+        <EditText
+            android:id="@+id/editCommand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Command (e.g. id, input tap 500 500)"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/btnExecute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Run"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Output:"
+            android:textStyle="bold"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvOutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="13sp"
+            android:typeface="monospace"
+            android:background="#F0F0F0"
+            android:padding="8dp"
+            android:minHeight="120dp"
+            android:gravity="top"
+            android:textIsSelectable="true" />
+
+    </LinearLayout>
+
+</ScrollView>

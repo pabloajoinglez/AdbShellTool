@@ -1,0 +1,20 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        // JitPack es necesario para libadb-android, que no esta en Maven Central
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+rootProject.name = "AdbShellTool"
+include ':app'

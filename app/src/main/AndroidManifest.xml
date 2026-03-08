@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        INTERNET: la app abre un socket TCP a 127.0.0.1 para conectarse al daemon ADB.
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--
+        POST_NOTIFICATIONS: requerido en Android 13+ para mostrar notificaciones.
+        La notificación de pairing con RemoteInput la necesita.
+    -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!--
+        FOREGROUND_SERVICE: requerido para que AdbPairingService pueda llamar
+        a startForeground() y aparecer como servicio persistente mientras
+        el usuario está en Settings.
+    -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!--
+        FOREGROUND_SERVICE_CONNECTED_DEVICE: requerido en Android 14+ para
+        foreground services del tipo CONNECTED_DEVICE (ADB es un dispositivo
+        conectado). Sin este permiso PendingIntent.getForegroundService falla.
+    -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:label="ADB Shell Tool"
+        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            AdbPairingService: servicio en foreground que muestra la notificación
+            con campo de entrada inline (RemoteInput) para el código de pairing.
+            No necesita exportarse ya que solo lo arranca nuestra propia app.
+        -->
+        <!--
+            foregroundServiceType="connectedDevice" necesario en Android 14+
+            para servicios que usan conectividad con dispositivos locales (ADB).
+        -->
+        <service
+            android:name=".AdbPairingService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice" />
+
+
+
+    </application>
+
+</manifest>

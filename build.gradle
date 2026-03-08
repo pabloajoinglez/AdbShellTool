@@ -1,0 +1,5 @@
+// build.gradle raiz del proyecto
+// Solo declara plugins, no añade dependencias aqui
+plugins {
+    id 'com.android.application' version '8.2.2' apply false
+}
